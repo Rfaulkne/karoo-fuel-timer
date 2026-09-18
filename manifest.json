@@ -2,11 +2,11 @@
   "label": "Fuel Timer",
   "packageName": "com.rfaulkne.karoofueltimer3",
   "latestApkUrl": "https://github.com/Rfaulkne/karoo-fuel-timer/releases/latest/download/KarooFuelTimer.apk",
-  "latestVersion": "0.7",
-  "latestVersionCode": 7,
+  "latestVersion": "0.8",
+  "latestVersionCode": 8,
   "developer": "Rfaulkne",
   "description": "Simple in-ride fuel timer for Hammerhead Karoo. Tap BAR or GEL to reset its timer and increment its count.",
-  "releaseNotes": "Two-row BAR/GEL grid with colored buttons, time since last, count, instant redraw, low-power refresh, and per-ride reset.",
+  "releaseNotes": "Two-row BAR/GEL grid plus forced fresh Karoo field registration.",
   "screenshotUrls": [],
   "tags": ["fitness"]
 }
