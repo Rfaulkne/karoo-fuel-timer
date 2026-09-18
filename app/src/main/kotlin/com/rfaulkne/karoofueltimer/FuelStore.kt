@@ -5,36 +5,25 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 
 data class FuelSnapshot(
     val lastBarMs: Long,
-    val barSize: String,
     val barCount: Int,
     val lastGelMs: Long,
-    val gelSize: String,
     val gelCount: Int,
-    val lastGlucoseMs: Long,
-    val glucoseCount: Int,
     val total: Int,
 )
 
 data class FuelEvent(val code: Int, val total: Int, val timestampMs: Long)
 
 object FuelStore {
-    const val ACTION_BAR_S = "com.rfaulkne.karoofueltimer.BAR_S"
-    const val ACTION_BAR_L = "com.rfaulkne.karoofueltimer.BAR_L"
-    const val ACTION_GEL_S = "com.rfaulkne.karoofueltimer.GEL_S"
-    const val ACTION_GEL_L = "com.rfaulkne.karoofueltimer.GEL_L"
-    const val ACTION_GLUCOSE = "com.rfaulkne.karoofueltimer.GLUCOSE"
+    const val ACTION_BAR = "com.rfaulkne.karoofueltimer.BAR"
+    const val ACTION_GEL = "com.rfaulkne.karoofueltimer.GEL"
 
     val events = MutableSharedFlow<FuelEvent>(extraBufferCapacity = 32)
 
     private const val PREFS = "fuel_timer"
     private const val LAST_BAR = "last_bar"
-    private const val BAR_SIZE = "bar_size"
     private const val BAR_COUNT = "bar_count"
     private const val LAST_GEL = "last_gel"
-    private const val GEL_SIZE = "gel_size"
     private const val GEL_COUNT = "gel_count"
-    private const val LAST_GLUCOSE = "last_glucose"
-    private const val GLUCOSE_COUNT = "glucose_count"
     private const val TOTAL = "total"
     private const val SESSION_ACTIVE = "session_active"
 
@@ -42,13 +31,9 @@ object FuelStore {
         val p = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         return FuelSnapshot(
             lastBarMs = p.getLong(LAST_BAR, 0L),
-            barSize = p.getString(BAR_SIZE, "") ?: "",
             barCount = p.getInt(BAR_COUNT, 0),
             lastGelMs = p.getLong(LAST_GEL, 0L),
-            gelSize = p.getString(GEL_SIZE, "") ?: "",
             gelCount = p.getInt(GEL_COUNT, 0),
-            lastGlucoseMs = p.getLong(LAST_GLUCOSE, 0L),
-            glucoseCount = p.getInt(GLUCOSE_COUNT, 0),
             total = p.getInt(TOTAL, 0),
         )
     }
@@ -59,49 +44,21 @@ object FuelStore {
         val nextTotal = p.getInt(TOTAL, 0) + 1
 
         val code = when (action) {
-            ACTION_BAR_S -> {
+            ACTION_BAR -> {
                 p.edit()
                     .putLong(LAST_BAR, now)
-                    .putString(BAR_SIZE, "S")
                     .putInt(BAR_COUNT, p.getInt(BAR_COUNT, 0) + 1)
                     .putInt(TOTAL, nextTotal)
                     .apply()
                 1
             }
-            ACTION_BAR_L -> {
+            ACTION_GEL -> {
                 p.edit()
-                    .putLong(LAST_BAR, now)
-                    .putString(BAR_SIZE, "L")
-                    .putInt(BAR_COUNT, p.getInt(BAR_COUNT, 0) + 1)
+                    .putLong(LAST_GEL, now)
+                    .putInt(GEL_COUNT, p.getInt(GEL_COUNT, 0) + 1)
                     .putInt(TOTAL, nextTotal)
                     .apply()
                 2
-            }
-            ACTION_GEL_S -> {
-                p.edit()
-                    .putLong(LAST_GEL, now)
-                    .putString(GEL_SIZE, "S")
-                    .putInt(GEL_COUNT, p.getInt(GEL_COUNT, 0) + 1)
-                    .putInt(TOTAL, nextTotal)
-                    .apply()
-                3
-            }
-            ACTION_GEL_L -> {
-                p.edit()
-                    .putLong(LAST_GEL, now)
-                    .putString(GEL_SIZE, "L")
-                    .putInt(GEL_COUNT, p.getInt(GEL_COUNT, 0) + 1)
-                    .putInt(TOTAL, nextTotal)
-                    .apply()
-                4
-            }
-            ACTION_GLUCOSE -> {
-                p.edit()
-                    .putLong(LAST_GLUCOSE, now)
-                    .putInt(GLUCOSE_COUNT, p.getInt(GLUCOSE_COUNT, 0) + 1)
-                    .putInt(TOTAL, nextTotal)
-                    .apply()
-                5
             }
             else -> return
         }
