@@ -39,15 +39,15 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: KarooFuelTimer-v0.6
+          name: KarooFuelTimer-v0.7
           path: KarooFuelTimer.apk
           if-no-files-found: error
-      - name: Publish v0.6 release
+      - name: Publish v0.7 release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if gh release view v0.6 >/dev/null 2>&1; then
-            gh release upload v0.6 KarooFuelTimer.apk --clobber
+          if gh release view v0.7 >/dev/null 2>&1; then
+            gh release upload v0.7 KarooFuelTimer.apk --clobber
           else
-            gh release create v0.6 KarooFuelTimer.apk --title "Fuel Timer v0.6" --notes "Multiline per-category totals, low-power refresh, and per-ride reset."
+            gh release create v0.7 KarooFuelTimer.apk --title "Fuel Timer v0.7" --notes "Two-row BAR/GEL grid with instant redraw and per-ride reset."
           fi
