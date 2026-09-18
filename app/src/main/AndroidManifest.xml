@@ -8,8 +8,12 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.NoActionBar">
 
+        <meta-data
+            android:name="io.hammerhead.karooext.MANIFEST_URL"
+            android:value="https://raw.githubusercontent.com/Rfaulkne/karoo-fuel-timer/main/manifest.json" />
+
         <activity
-            android:name=".MainActivity"
+            android:name="com.rfaulkne.karoofueltimer.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,11 +22,11 @@
         </activity>
 
         <receiver
-            android:name=".FuelActionReceiver"
+            android:name="com.rfaulkne.karoofueltimer.FuelActionReceiver"
             android:exported="false" />
 
         <service
-            android:name=".FuelTimerExtension"
+            android:name="com.rfaulkne.karoofueltimer.FuelTimerExtension"
             android:exported="true"
             tools:ignore="ExportedService">
             <intent-filter>
