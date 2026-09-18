@@ -4,6 +4,10 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import io.hammerhead.karooext.extension.DataTypeImpl
 import io.hammerhead.karooext.internal.ViewEmitter
 import io.hammerhead.karooext.models.UpdateGraphicConfig
@@ -66,7 +70,14 @@ class FuelTimerDataType(extension: String) : DataTypeImpl(extension, TYPE_ID) {
         return "$minutes min"
     }
 
-    private fun categoryLabel(name: String, count: Int): String = "$name\n$count total"\n\n    companion object {
+    private fun categoryLabel(name: String, count: Int): CharSequence {
+        val text = "$name\n$count total"
+        val result = SpannableString(text)
+        val start = name.length + 1
+        result.setSpan(RelativeSizeSpan(0.58f), start, text.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        result.setSpan(ForegroundColorSpan(0xFFBDBDBD.toInt()), start, text.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        return result
+    }\n\n    companion object {
         const val TYPE_ID = "fuel-timer"
     }
 }
