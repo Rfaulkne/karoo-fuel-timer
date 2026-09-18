@@ -11,8 +11,8 @@ android {
         applicationId = "com.rfaulkne.karoofueltimer3"
         minSdk = 26
         targetSdk = 29
-        versionCode = 3
-        versionName = "0.3"
+        versionCode = 4
+        versionName = "0.4"
     }
 
     buildTypes {
