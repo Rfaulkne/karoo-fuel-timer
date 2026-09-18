@@ -11,8 +11,8 @@ android {
         applicationId = "com.rfaulkne.karoofueltimer"
         minSdk = 23
         targetSdk = 34
-        versionCode = 1
-        versionName = "0.1"
+        versionCode = 2
+        versionName = "0.2"
     }
 
     buildTypes {
@@ -32,6 +32,6 @@ android {
 }
 
 dependencies {
-    implementation("io.hammerhead:karoo-ext:1.1.9")
+    implementation("io.hammerhead:karoo-ext:1.1.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
 }
