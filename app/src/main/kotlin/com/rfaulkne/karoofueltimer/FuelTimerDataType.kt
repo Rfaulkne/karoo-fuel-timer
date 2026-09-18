@@ -34,14 +34,12 @@ class FuelTimerDataType(extension: String) : DataTypeImpl(extension, TYPE_ID) {
         val snapshot = FuelStore.snapshot(context)
         val views = RemoteViews(context.packageName, R.layout.fuel_timer_field)
 
-        views.setTextViewText(R.id.bar_label, if (snapshot.barSize.isBlank()) "BAR" else "BAR " + snapshot.barSize)
-        views.setTextViewText(R.id.gel_label, if (snapshot.gelSize.isBlank()) "GEL" else "GEL " + snapshot.gelSize)
+        views.setTextViewText(R.id.bar_label, categoryLabel(if (snapshot.barSize.isBlank()) "BAR" else "BAR " + snapshot.barSize, snapshot.barCount))
+        views.setTextViewText(R.id.gel_label, categoryLabel(if (snapshot.gelSize.isBlank()) "GEL" else "GEL " + snapshot.gelSize, snapshot.gelCount))
+        views.setTextViewText(R.id.glu_label, categoryLabel("GLU", snapshot.glucoseCount))
         views.setTextViewText(R.id.bar_time, elapsed(snapshot.lastBarMs))
         views.setTextViewText(R.id.gel_time, elapsed(snapshot.lastGelMs))
         views.setTextViewText(R.id.glu_time, elapsed(snapshot.lastGlucoseMs))
-        views.setTextViewText(R.id.bar_count, snapshot.barCount.toString() + " total")
-        views.setTextViewText(R.id.gel_count, snapshot.gelCount.toString() + " total")
-        views.setTextViewText(R.id.glu_count, snapshot.glucoseCount.toString() + " total")
 
         views.setOnClickPendingIntent(R.id.btn_bar_s, pending(context, 101, FuelStore.ACTION_BAR_S))
         views.setOnClickPendingIntent(R.id.btn_bar_l, pending(context, 102, FuelStore.ACTION_BAR_L))
@@ -68,7 +66,7 @@ class FuelTimerDataType(extension: String) : DataTypeImpl(extension, TYPE_ID) {
         return "$minutes min"
     }
 
-    companion object {
+    private fun categoryLabel(name: String, count: Int): String = "$name\n$count total"\n\n    companion object {
         const val TYPE_ID = "fuel-timer"
     }
 }
