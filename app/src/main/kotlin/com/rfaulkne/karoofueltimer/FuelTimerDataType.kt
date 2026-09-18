@@ -77,7 +77,9 @@ class FuelTimerDataType(extension: String) : DataTypeImpl(extension, TYPE_ID) {
         result.setSpan(RelativeSizeSpan(0.58f), start, text.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         result.setSpan(ForegroundColorSpan(0xFFBDBDBD.toInt()), start, text.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         return result
-    }\n\n    companion object {
+    }
+
+    companion object {
         const val TYPE_ID = "fuel-timer"
     }
 }
