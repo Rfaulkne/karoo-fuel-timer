@@ -69,6 +69,6 @@ class FuelTimerDataType(extension: String) : DataTypeImpl(extension, TYPE_ID) {
     }
 
     companion object {
-        const val TYPE_ID = "fuel-timer"
+        const val TYPE_ID = "fuel-grid-v2"
     }
 }
