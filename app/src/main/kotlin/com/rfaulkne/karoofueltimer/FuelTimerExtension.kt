@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class FuelTimerExtension : KarooExtension("fuel-timer", "0.1") {
+class FuelTimerExtension : KarooExtension("fuel-timer", "0.5") {
     private val karooSystem by lazy { KarooSystemService(this) }
     private var serviceJob: Job? = null
 
@@ -39,12 +39,12 @@ class FuelTimerExtension : KarooExtension("fuel-timer", "0.1") {
         super.onCreate()
         serviceJob = CoroutineScope(Dispatchers.IO).launch {
             karooSystem.connect { }
-            var previous: RideState? = null
             karooSystem.consumerFlow<RideState>().collect { current ->
-                if (current is RideState.Recording && previous is RideState.Idle) {
-                    FuelStore.resetRide(this@FuelTimerExtension)
+                when (current) {
+                    is RideState.Idle -> FuelStore.onRideIdle(this@FuelTimerExtension)
+                    is RideState.Recording -> FuelStore.onRideActive(this@FuelTimerExtension)
+                    is RideState.Paused -> FuelStore.onRideActive(this@FuelTimerExtension)
                 }
-                previous = current
             }
         }
     }
