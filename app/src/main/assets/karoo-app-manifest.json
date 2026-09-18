@@ -3,11 +3,11 @@
   "packageName": "com.rfaulkne.karoofueltimer3",
   "iconUrl": "https://raw.githubusercontent.com/Rfaulkne/karoo-fuel-timer/main/icon.png",
   "latestApkUrl": "https://github.com/Rfaulkne/karoo-fuel-timer/releases/latest/download/KarooFuelTimer.apk",
-  "latestVersion": "0.6",
-  "latestVersionCode": 6,
+  "latestVersion": "0.7",
+  "latestVersionCode": 7,
   "developer": "Rfaulkne",
-  "description": "Simple in-ride fuel timer for Hammerhead Karoo. Log small or large bars and gels plus glucose, and see minutes since each category was last eaten.",
-  "releaseNotes": "Render per-category totals directly under labels; keep low-power refresh and per-ride reset.",
+  "description": "Simple in-ride fuel timer for Hammerhead Karoo. Tap BAR or GEL to reset its timer and increment its count.",
+  "releaseNotes": "Two-row BAR/GEL grid with colored buttons, time since last, count, instant redraw, low-power refresh, and per-ride reset.",
   "screenshotUrls": [],
   "tags": ["fitness"]
 }
