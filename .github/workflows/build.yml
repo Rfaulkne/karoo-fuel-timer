@@ -15,40 +15,34 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
-
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.2"
-
       - name: Build APK
         env:
           USERNAME: ${{ github.actor }}
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gradle :app:assembleDebug --stacktrace
-
       - name: Prepare APK
         run: cp app/build/outputs/apk/debug/app-debug.apk KarooFuelTimer.apk
-
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: KarooFuelTimer-v0.3
+          name: KarooFuelTimer-v0.4
           path: KarooFuelTimer.apk
           if-no-files-found: error
-
-      - name: Publish v0.3 release
+      - name: Publish v0.4 release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if gh release view v0.3 >/dev/null 2>&1; then
-            gh release upload v0.3 KarooFuelTimer.apk --clobber
+          if gh release view v0.4 >/dev/null 2>&1; then
+            gh release upload v0.4 KarooFuelTimer.apk --clobber
           else
-            gh release create v0.3 KarooFuelTimer.apk --title "Fuel Timer v0.3" --notes "Karoo Fuel Timer compatibility build."
+            gh release create v0.4 KarooFuelTimer.apk --title "Fuel Timer v0.4" --notes "Per-category totals and lower-power refresh."
           fi
