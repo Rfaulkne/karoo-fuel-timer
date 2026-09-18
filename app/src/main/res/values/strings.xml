@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Fuel Timer</string>
+    <string name="extension_name">Fuel Timer</string>
+    <string name="fuel_timer_name">Fuel Timer</string>
+    <string name="fuel_timer_description">Time since your last bar, gel and glucose, with one-tap fuel logging.</string>
+</resources>
