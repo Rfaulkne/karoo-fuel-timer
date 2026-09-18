@@ -2,7 +2,7 @@
 <ExtensionInfo
     displayName="@string/extension_name"
     icon="@drawable/ic_fuel"
-    id="fuel-timer"
+    id="fuel-timer-grid"
     scansDevices="false"
     fitFile="true">
     <DataType
@@ -10,5 +10,5 @@
         displayName="@string/fuel_timer_name"
         graphical="true"
         icon="@drawable/ic_fuel"
-        typeId="fuel-timer" />
+        typeId="fuel-grid-v2" />
 </ExtensionInfo>
