@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class FuelTimerExtension : KarooExtension("fuel-timer", "0.5") {
+class FuelTimerExtension : KarooExtension("fuel-timer-grid", "0.8") {
     private val karooSystem by lazy { KarooSystemService(this) }
     private var serviceJob: Job? = null
 
