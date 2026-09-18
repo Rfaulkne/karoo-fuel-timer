@@ -23,7 +23,7 @@ class FuelTimerDataType(extension: String) : DataTypeImpl(extension, TYPE_ID) {
         val job = CoroutineScope(Dispatchers.Default).launch {
             while (isActive) {
                 emitter.updateView(buildView(context))
-                delay(1_000)
+                delay(30_000)
             }
         }
 
@@ -39,7 +39,9 @@ class FuelTimerDataType(extension: String) : DataTypeImpl(extension, TYPE_ID) {
         views.setTextViewText(R.id.bar_time, elapsed(snapshot.lastBarMs))
         views.setTextViewText(R.id.gel_time, elapsed(snapshot.lastGelMs))
         views.setTextViewText(R.id.glu_time, elapsed(snapshot.lastGlucoseMs))
-        views.setTextViewText(R.id.total_count, snapshot.total.toString())
+        views.setTextViewText(R.id.bar_count, snapshot.barCount.toString() + " total")
+        views.setTextViewText(R.id.gel_count, snapshot.gelCount.toString() + " total")
+        views.setTextViewText(R.id.glu_count, snapshot.glucoseCount.toString() + " total")
 
         views.setOnClickPendingIntent(R.id.btn_bar_s, pending(context, 101, FuelStore.ACTION_BAR_S))
         views.setOnClickPendingIntent(R.id.btn_bar_l, pending(context, 102, FuelStore.ACTION_BAR_L))
