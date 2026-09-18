@@ -36,6 +36,7 @@ object FuelStore {
     private const val LAST_GLUCOSE = "last_glucose"
     private const val GLUCOSE_COUNT = "glucose_count"
     private const val TOTAL = "total"
+    private const val SESSION_ACTIVE = "session_active"
 
     fun snapshot(context: Context): FuelSnapshot {
         val p = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
@@ -108,10 +109,17 @@ object FuelStore {
         events.tryEmit(FuelEvent(code, nextTotal, now))
     }
 
-    fun resetRide(context: Context) {
+    fun onRideIdle(context: Context) {
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
             .edit()
-            .clear()
+            .putBoolean(SESSION_ACTIVE, false)
             .apply()
+    }
+
+    fun onRideActive(context: Context) {
+        val p = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        if (!p.getBoolean(SESSION_ACTIVE, false)) {
+            p.edit().clear().putBoolean(SESSION_ACTIVE, true).apply()
+        }
     }
 }
